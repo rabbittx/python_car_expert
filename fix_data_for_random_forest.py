@@ -3,7 +3,7 @@ from sklearn import  preprocessing
 import os ,datetime
 
 #TODO change it to class
-    # fix data for random frost csv file class
+    # fix data for random forest csv file class
 #TODO save car dics to can get input from user
     # to check user input string with it number value
 
@@ -95,7 +95,7 @@ for index, data in enumerate(with_price['id']):
         'price': price[index],
 
     }
-    save_to_csv(car_data, 'to_use_for_random_frost_without_price')
+    save_to_csv(car_data, 'to_use_for_random_forest_without_price')
 
 
 
