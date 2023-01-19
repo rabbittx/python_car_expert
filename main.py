@@ -1,12 +1,14 @@
 from fetch_data import bama_crawler
 from tree import Car_expert
+from random_forest import random_forest_car_expert
 import pickle
 
-class Panel(bama_crawler ,Car_expert,):
+class Panel(bama_crawler ,Car_expert,random_forest_car_expert):
     def __init__(self, page_scroll_num, csv_file_name):
         self.crawler_page_scroll = page_scroll_num
         self.car_info_CSV_file_name = csv_file_name
         self.car_expert = None
+        self.rf_car_expert = None
         self.bama_crawler = None
         self.panel_ans = 0
 
@@ -44,7 +46,7 @@ class Panel(bama_crawler ,Car_expert,):
             print('1. update the DB')
             print('2. train car expert')
             print('3. check your car price ')
-            # print('4. random forest ')
+            print('4. random forest ')
 
             print('-1 to close panel ')
             self.panel_ans = int(input('enter 1 , 2 , 3 or -1 : '))
@@ -69,11 +71,12 @@ class Panel(bama_crawler ,Car_expert,):
                     self.panel_menu()
 
                 # TODO   need more data to use this part : (3794/5521):0.581857219538379
-            # elif self.panel_ans == 4 :
-            #     RFmodel = pickle.load(open('RandomForestModel.sav', 'rb'))
-            #     [user_brand,user_model,user_year,user_gear,user_km,user_city,]
-            #     predicted_value = RFmodel.predict(data)
-
+            elif self.panel_ans == 4 :
+                if self.rf_car_expert != None:
+                    self.rf_car_expert = random_forest_car_expert()
+                    self.rf_car_expert.main()
+                else:
+                    self.rf_car_expert.main()
 
     def __del__(self):
         self.crawler_page_scroll = None
