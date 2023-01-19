@@ -107,7 +107,8 @@ class data_fixer:
         self.car_city = []
         self.car_address = []
         self.car_date = []
-        self.new_date_list = []
+        self.car_price = []
+        self.date_list = []
         self.with_price = pd.read_csv("CAR_INFO_DB_with_price.csv")
         self.without_price = pd.read_csv("CAR_INFO_DB_without_price.csv")
         self.le = preprocessing.LabelEncoder()
@@ -140,6 +141,9 @@ class data_fixer:
         elif csv_title_string == 'km':
             column_data = with_price['km']
             return column_data
+        elif csv_title_string == 'price':
+            column_data = with_price['price']
+            return column_data
         elif csv_title_string =='year':    
             column_data = with_price['year']
             return column_data
@@ -150,7 +154,7 @@ class data_fixer:
             output_dic = self.fill_dic(column_data, output_dic, csv_file, csv_title_string)
             return [output_dic , column_data]
     
-    def fix_data(self,car_brand,car_model,year,km,gear,city,price,new_date_list,csv_file,output_csv_file_name_string):
+    def fix_data_save(self,car_brand,car_model,year,km,gear,city,price,new_date_list,csv_file,output_csv_file_name_string):
         for index, data in enumerate(csv_file['id']):
             car_data = {
                 'id': data,
@@ -164,10 +168,40 @@ class data_fixer:
                 'price': price[index],
             }
             self.save_to_csv(car_data, output_csv_file_name)
+    def fix_with_price_data(self):
+        print('start with')
+        self.car_brand = self.lables_data('car_brand',self.with_price)
+        self.car_model = self.lables_data('car_model',self.with_price)
+        self.year = self.lables_data('year',self.with_price)
+        self.km = self.lables_data('km',self.with_price)
+        self.gear = self.lables_data('gear',self.with_price)
+        self.city = self.lables_data('city',self.with_price)
+        self.date_list = self.lables_data('date',self.with_price)
+        self.car_price = self.lables_data('price',self.with_price)
+        self.fix_data_save(self,car_brand[1],car_model[1],year,km,gear[1],city[1],car_price,date_list,self.with_price,'random_forest_data_with_price')
+        print('done with')
+
+    def fix_with_price_data(self):
+        print('start without')
+        self.car_brand = self.lables_data('car_brand',self.without_price)
+        self.car_model = self.lables_data('car_model',self.without_price)
+        self.year = self.lables_data('year',self.without_price)
+        self.km = self.lables_data('km',self.without_price)
+        self.gear = self.lables_data('gear',self.without_price)
+        self.city = self.lables_data('city',self.without_price)
+        self.date_list = self.lables_data('date',self.without_price)
+        self.car_price = self.lables_data('price',self.without_price)
+        self.fix_data_save(self,car_brand[1],car_model[1],year,km,gear[1],city[1],car_price,date_list,self.without_price,'random_forest_data_without_price')
+        print('done without')
 
     def main(self):
-        self.car_brand = self.lables_data('car_brand',self.with_price)
-    
+        print('start')
+        self.fix_with_price_data()
+        self.fix_without_price_data()
+        print('end')
+
+
+
     def __del__(self):
         self.car_brand_dic = None
         self.car_model_dic = None
@@ -179,3 +213,7 @@ class data_fixer:
         self.with_price = None
         self.without_price = None
         self.le = None
+
+if __name__ == '__main__':
+    data_fixer = data_fixer()
+    data_fixer.main()
