@@ -44,7 +44,7 @@ class Panel(bama_crawler ,Car_expert,):
             print('1. update the DB')
             print('2. train car expert')
             print('3. check your car price ')
-            print('4. random frost ')
+            print('4. random forest ')
 
             print('-1 to close panel ')
             self.panel_ans = int(input('enter 1 , 2 , 3 or -1 : '))
