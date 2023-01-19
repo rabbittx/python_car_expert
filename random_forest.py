@@ -6,7 +6,7 @@ from sklearn.metrics import confusion_matrix,accuracy_score
 from sklearn.metrics import confusion_matrix,accuracy_score
 from sklearn.model_selection import train_test_split
 
-class random_forest():
+class random_forest_car_expert():
     def __init__(self):       
         self.with_price = pd.read_csv("random_forest_data_with_price.csv")
         self.without_price = pd.read_csv("random_forest_data_without_price.csv")
@@ -54,5 +54,5 @@ class random_forest():
 
 
 if __name__ == '__main__':
-    random_forest_test = random_forest()
+    random_forest_test = random_forest_car_expert()
     random_forest_test.main()
