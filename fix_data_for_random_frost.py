@@ -99,3 +99,18 @@ for index, data in enumerate(with_price['id']):
 
 
 
+class data_fixer:
+    def __init__(self):
+        pass
+
+    def fill_dic(self):
+        pass
+    
+    def save_to_csv(self):
+        pass
+    
+    def fix_data(self):
+        pass
+    
+    def __del__(self):
+        pass
