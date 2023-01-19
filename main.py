@@ -86,7 +86,7 @@ class Panel(bama_crawler ,Car_expert,random_forest_car_expert):
         self.panel_ans = None
 
 if __name__ == '__main__':
-    page_scroll = 100
+    page_scroll = int(input('enter page scroll : '))
     csv_file = 'CAR_INFO_DB_with_price.csv'
     panel = Panel(page_scroll,csv_file)
     panel.panel_menu()
