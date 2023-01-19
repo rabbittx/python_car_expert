@@ -101,10 +101,46 @@ for index, data in enumerate(with_price['id']):
 
 class data_fixer:
     def __init__(self):
-        pass
+        self.car_brand_dic = {}
+        self.car_model_dic = {}
+        self.car_gear_dic = {}
+        self.car_city_dic = {}
+        self.car_address_dic = {}
+        self.car_date_dic = {}
+        self.new_date_list = []
+        self.with_price = pd.read_csv("CAR_INFO_DB_with_price.csv")
+        self.without_price = pd.read_csv("CAR_INFO_DB_without_price.csv")
+        self.le = preprocessing.LabelEncoder()
 
-    def fill_dic(self):
-        pass
+    def fill_dic(self,csv_file,out_dic,input_list,row_name):
+        for index, i in enumerate(csv_file[row_name]):
+            dic_key = i
+            if type(dic_key) == float:
+                dic_key = f'None{index}'
+
+            out_dic[dic_key] = input_list[index]
+        return out_dic
+    
+    def lables_data(self,csv_title_string,):    
+        csv_title_string = 'date'
+
+        new_date = with_price['date']
+
+        for date_time in new_date :
+
+            if len(date_time.split('-')) < 3 :
+                new_date_time =  str(datetime.datetime.today()).split()[0]
+            else: new_date_time = date_time
+            new_date_time = new_date_time.split('-')
+
+            new_date_time = new_date_time[0] + new_date_time[1] + new_date_time[2]
+            print(new_date_time)
+            new_date_list.append(int(new_date_time))
+
+        car_brand = with_price['car_brand']
+        le.fit(car_brand)
+        car_brand = le.transform(car_brand)
+        car_brand_dic = fill_dic(car_brand, car_brand_dic, with_price, 'car_brand')
     
     def save_to_csv(self):
         pass
