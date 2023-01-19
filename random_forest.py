@@ -61,3 +61,17 @@ print(accuracy_score(labels_test,rf_pred_label))
 import pickle
 file_name = "RandomForestModel.sav"
 pickle.dump(RFmodel,open(file_name,'wb'))
+
+
+class random_forest():
+    def __init__(self):
+        pass
+
+    def make_df(self):
+        pass
+    
+    def train_model(self):
+        pass
+    
+    def check_price(self):
+        pass
