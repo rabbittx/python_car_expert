@@ -1,8 +1,6 @@
 import pandas as pd
 from sklearn import  preprocessing
-import os ,datetime
-import pickle
-import random
+import os ,datetime ,pickle, random
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import confusion_matrix,accuracy_score
 from sklearn.metrics import confusion_matrix,accuracy_score
@@ -48,10 +46,8 @@ class random_forest():
         print('start')
         self.make_df()
         print('df ready')
-
         self.train_model()
         print('train model done')
-
         self.save_random_frost()
         print('file is save ')
         self.check_price()
