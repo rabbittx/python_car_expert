@@ -1,8 +1,8 @@
 *.csv
 *.log
-*.txt
 *.exe
 *.sav
 venv
 env
 .idea
+__pycache__/
