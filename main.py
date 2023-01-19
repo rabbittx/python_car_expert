@@ -29,12 +29,12 @@ class Panel(bama_crawler ,Car_expert,):
 
     def check_car_price(self):
         # remove input from here and get them from user inside of function
-        # user_brand = 'جیلی'
-        # user_model = 'GC6'
-        # user_year = 1398
-        # user_gear = 'اکسلنت'
-        # user_km = 76000
-        # user_city = 'بابل'
+        user_brand = 'جیلی'
+        user_model = 'GC6'
+        user_year = 1398
+        user_gear = 'اکسلنت'
+        user_km = 76000
+        user_city = 'بابل'
         self.car_expert.check_it(user_brand,user_model,user_year,user_gear,user_km,user_city,)
 
     def panel_menu(self):
@@ -44,7 +44,7 @@ class Panel(bama_crawler ,Car_expert,):
             print('1. update the DB')
             print('2. train car expert')
             print('3. check your car price ')
-            print('4. random forest ')
+            # print('4. random forest ')
 
             print('-1 to close panel ')
             self.panel_ans = int(input('enter 1 , 2 , 3 or -1 : '))
@@ -81,11 +81,6 @@ class Panel(bama_crawler ,Car_expert,):
         self.car_expert = None
         self.bama_crawler = None
         self.panel_ans = None
-
-
-
-
-
 
 if __name__ == '__main__':
     page_scroll = 100
