@@ -72,11 +72,8 @@ class Panel(bama_crawler ,Car_expert,random_forest_car_expert):
 
                 # TODO   need more data to use this part : (3794/5521):0.581857219538379
             elif self.panel_ans == 4 :
-                if self.rf_car_expert != None:
-                    self.rf_car_expert = random_forest_car_expert()
-                    self.rf_car_expert.main()
-                else:
-                    self.rf_car_expert.main()
+                random_forest_car_expert().main()
+               
 
     def __del__(self):
         self.crawler_page_scroll = None

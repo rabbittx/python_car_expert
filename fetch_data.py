@@ -47,6 +47,19 @@ class bama_crawler:
                 break
             last_height = new_height
 
+    def check_date(self,date):
+        if date == "دیروز"  :
+            date =  datetime.date.today() - datetime.timedelta(days=1)
+            date = date.strftime('%m%d%y')
+            return date 
+            
+        elif "روز پیش" in date:
+                # date.split() -> for x: if type x == int -> x= int(date[x]) - > timedelta(days=1)
+            pass
+        else:
+            date = datetime.today().strftime('%m%d%y')
+            return date 
+            
     def get_page(self, scroll, request_delay):
 
         print(f'+page is up but , request delay -> {request_delay}s')
