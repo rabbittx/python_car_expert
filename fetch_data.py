@@ -54,7 +54,7 @@ class bama_crawler:
             return date 
             
         elif "روز پیش" in date:
-                # date.split() -> for x: if type x == int -> x= int(date[x]) - > timedelta(days=1)
+                # date.split() -> for x: if type x == int -> x= int(date[x]) - > timedelta(days=x)
             pass
         else:
             date = datetime.today().strftime('%m%d%y')
@@ -81,7 +81,7 @@ class bama_crawler:
                 print(f'-ready to go ! ')
                 WebDriverWait(self.driver, 30).until(
                     EC.presence_of_all_elements_located((By.CLASS_NAME, 'bama-ad')))
-                self.page_scroll(scroll) # Error if page break and page scroll is false it soup return with 0 element (crawler close with no error ! )
+                self.page_scroll(scroll) # Error if page break and page scroll is false it return soup with 0 element (crawler close with no error ! )
                 page_source = self.driver.page_source
                 soup = BeautifulSoup(page_source, 'html.parser')
                 return soup
@@ -98,7 +98,7 @@ class bama_crawler:
         else:df.to_csv(f'{csv_file_name}.csv',index=0)
 
     def check_point(self,out_put_file_name,car_info):
-        # use to save new data .for time code can be break to do not lose new data
+        # use to save new data .for time code can be break to do not miss new data
         with open(f'{out_put_file_name}.txt', mode='w', encoding='utf-8') as check_point:
             check_point.write(str(car_info))
 
