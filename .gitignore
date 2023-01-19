@@ -1,5 +1,6 @@
 *.csv
 *.log
 *.txt
+*.exe
 venv
 .idea
