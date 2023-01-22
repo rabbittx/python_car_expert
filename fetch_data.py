@@ -6,7 +6,10 @@ from selenium.webdriver import Firefox, FirefoxProfile
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-# TODO fix date with article date ['روز پیش','دیروز','ساعت پیش','دقیقه پیش','لحظه پیش']
+# TODO fix date with article date ['روز پیش','دیروز','ساعت پیش','دقیقه پیش','لحظه پیش'] . 
+#  !-! time is => 01:50 am post date is for more then 2 hours ago  . store date is today but need to store yesterday date for that item 
+# TODO new def find_item_with_filter([filter]); 
+ 
 class bama_crawler:
     def __init__(self):
         self.target_url = 'https://bama.ir/car'
@@ -47,19 +50,19 @@ class bama_crawler:
                 break
             last_height = new_height
 
-    def check_date(self,date):
-        # 
-        if date == "دیروز"  :
-            date =  datetime.date.today() - datetime.timedelta(days=1)
-            date = date.strftime('%m%d%y')
-            return date 
+    # def check_date(self,date):
+    #     # 
+    #     if date == "دیروز"  :
+    #         date =  datetime.date.today() - datetime.timedelta(days=1)
+    #         date = date.strftime('%m%d%y')
+    #         return date 
             
-        elif "روز پیش" in date:
-                # date.split() -> for x: if type x == int -> x= int(date[x]) - > timedelta(days=x)
-            pass
-        else:
-            date = datetime.today().strftime('%m%d%y')
-            return date 
+    #     elif "روز پیش" in date:
+    #             # date.split() -> for x: if type x == int -> x= int(date[x]) - > timedelta(days=x)
+    #         pass
+    #     else:
+    #         date = datetime.today().strftime('%m%d%y')
+    #         return date 
             
     def get_page(self,  request_delay):
         scroll = int(input('enter page scroll : '))

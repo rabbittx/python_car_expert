@@ -81,6 +81,6 @@ class Panel(bama_crawler ,Car_expert,random_forest_car_expert):
         self.panel_ans = None
 
 if __name__ == '__main__':
-    csv_file = 'CAR_INFO_DB_with_price.csv'
-    panel = Panel(csv_file)
+    csv_file = 'CAR_INFO_DB_with_price.csv' #TODO get file name when is needed !
+    panel = Panel(csv_file) #TODO remove input 
     panel.panel_menu()
