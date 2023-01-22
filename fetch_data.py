@@ -76,7 +76,8 @@ class bama_crawler:
             self.page_scroll(scroll)
             page_source = self.driver.page_source
             soup = BeautifulSoup(page_source, 'html.parser')
-            return soup
+            car_offer = soup.find_all('div', {'class': 'bama-ad-holder'})
+            return car_offer
         except:
             try:
                 self.driver.refresh()
@@ -89,12 +90,16 @@ class bama_crawler:
                 self.page_scroll(scroll) # Error if page break and page scroll is false it return soup with 0 element (crawler close with no error ! )
                 page_source = self.driver.page_source
                 soup = BeautifulSoup(page_source, 'html.parser')
-                return soup
+                car_offer = soup.find_all('div', {'class': 'bama-ad-holder'})
+
+                return car_offer
             except:
                 print('!_!_! ERROR PAGE IS BROKEN : body height is null the page is broken ')
                 page_source = self.driver.page_source
                 soup = BeautifulSoup(page_source, 'html.parser')
-                return soup
+                car_offer = soup.find_all('div', {'class': 'bama-ad-holder'})
+
+                return car_offer
 
     def save_to_csv(self, car_info, csv_file_name):
         df = pd.DataFrame.from_dict(car_info, orient='index', )
@@ -107,8 +112,7 @@ class bama_crawler:
         with open(f'{out_put_file_name}.txt', mode='w', encoding='utf-8') as check_point:
             check_point.write(str(car_info))
 
-    def check_page(self, soup):
-        car_offer = soup.find_all('div', {'class': 'bama-ad-holder'})
+    def check_page(self, car_offer):
         for car in car_offer:
             id = car.attrs['code']
             title = car.find('p', {"class": "bama-ad__title"}).text.strip()
