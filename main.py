@@ -4,8 +4,7 @@ from random_forest import random_forest_car_expert
 import pickle
 
 class Panel(bama_crawler ,Car_expert,random_forest_car_expert):
-    def __init__(self, page_scroll_num, csv_file_name):
-        self.crawler_page_scroll = page_scroll_num
+    def __init__(self,  csv_file_name):
         self.car_info_CSV_file_name = csv_file_name
         self.car_expert = None
         self.rf_car_expert = None
@@ -16,9 +15,9 @@ class Panel(bama_crawler ,Car_expert,random_forest_car_expert):
         print('Panel : start to update DB')
         if self.bama_crawler == None:
             self.bama_crawler = bama_crawler()
-            self.bama_crawler.main(self.crawler_page_scroll)
+            self.bama_crawler.main()
         else:
-            self.bama_crawler.main(self.crawler_page_scroll)
+            self.bama_crawler.main()
         print('Panel : DB update done ')
 
     def train_car_expert(self):
@@ -76,14 +75,12 @@ class Panel(bama_crawler ,Car_expert,random_forest_car_expert):
                
 
     def __del__(self):
-        self.crawler_page_scroll = None
         self.car_info_CSV_file_name = None
         self.car_expert = None
         self.bama_crawler = None
         self.panel_ans = None
 
 if __name__ == '__main__':
-    page_scroll = int(input('enter page scroll : '))
     csv_file = 'CAR_INFO_DB_with_price.csv'
-    panel = Panel(page_scroll,csv_file)
+    panel = Panel(csv_file)
     panel.panel_menu()
