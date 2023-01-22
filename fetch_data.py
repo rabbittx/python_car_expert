@@ -48,6 +48,7 @@ class bama_crawler:
             last_height = new_height
 
     def check_date(self,date):
+        # 
         if date == "دیروز"  :
             date =  datetime.date.today() - datetime.timedelta(days=1)
             date = date.strftime('%m%d%y')
@@ -60,7 +61,8 @@ class bama_crawler:
             date = datetime.today().strftime('%m%d%y')
             return date 
             
-    def get_page(self, scroll, request_delay):
+    def get_page(self,  request_delay):
+        scroll = int(input('enter page scroll : '))
 
         print(f'+page is up but , request delay -> {request_delay}s')
         sleep(request_delay)
@@ -183,14 +185,14 @@ class bama_crawler:
             }
             self.save_to_csv(car_data, csv_filename)
 
-    def main(self, page_scroll):
+    def main(self, ):
         if os.path.isfile(f'{self.cars_info_with_price_DB}.csv'):
             print(f'{len(self.old_csv_file_with_price["id"])}=< cars with price data are in DB')
         if os.path.isfile(f'{self.cars_info_without_price_DB}.csv'):
             print(f'{len(self.old_csv_file_without_price["id"])}=< cars without price data are in DB')
 
         print('----------- start -----------')
-        page_source = self.get_page(page_scroll, 10)
+        page_source = self.get_page( 10)
         print(f'------page_source ready')
         self.check_page(page_source)
         print(f'------page extraction done')
