@@ -48,7 +48,6 @@ class bama_crawler:
             last_height = new_height
 
     def check_date(self,date):
-        # 
         if date == "دیروز"  :
             date =  datetime.date.today() - datetime.timedelta(days=1)
             date = date.strftime('%m%d%y')
