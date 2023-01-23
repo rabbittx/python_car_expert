@@ -102,6 +102,7 @@ class bama_crawler:
                 return car_offer
 
     def save_to_csv(self, car_info, csv_file_name):
+        #TODO check if file is in use first -> error : if file be in use (csv file be open in process) it beark the code ! 
         df = pd.DataFrame.from_dict(car_info, orient='index', )
         df = df.transpose()
         if os.path.isfile(f'{csv_file_name}.csv'):df.to_csv(f'{csv_file_name}.csv',mode='a',header=False, index=0)
@@ -135,22 +136,27 @@ class bama_crawler:
                                                                       {'class': 'bama-ad__price-holder'}).text.strip()
             except:
                 price = -1
-
-            if price == -1 or price == 'توافقی':
-
-                if os.path.isfile(f'{self.cars_info_without_price_DB}.csv'):
-                    if id not in list(self.car_info_without_price.keys()) and id not in self.old_csv_file_without_price[
-                        'id'].values:
-                        self.car_info_without_price.update(
-                            {id: [title, date, car_brand, car_model, year, km, gear, address, city,
-                                  location, price, car_link, ]})
+            if type(price) == str:
+                price = price.replace(',','')
+            
+            if price != 'توافقی' and price != -1:
+                price = int(price)
+                print(price)
+                if  (price <=200000000 and city =='تهران' )and ():
+                    if os.path.isfile(f'car-200m-cityfilter_wit_price.csv'):
+                        filter_csv_witout = pd.read_csv('car-200m-cityfilter_wit_price.csv')
+                        if id not in list(self.car_info_without_price.keys()) and id not in filter_csv_witout[
+                            'id'].values:
+                            self.car_info_without_price.update(
+                                {id: [title, date, car_brand, car_model, year, km, gear, address, city,
+                                    location, price, car_link, ]})
+                        else:
+                            pass
                     else:
-                        pass
-                else:
-                    if id not in self.car_info_without_price.keys():
-                        self.car_info_without_price.update(
-                            {id: [title, date, car_brand, car_model, year, km, gear, address, city,
-                                  location, price, car_link, ]})
+                        if id not in self.car_info_without_price.keys():
+                            self.car_info_without_price.update(
+                                {id: [title, date, car_brand, car_model, year, km, gear, address, city,
+                                    location, price, car_link, ]})
 
             else:
                 if os.path.isfile(f'{self.cars_info_with_price_DB}.csv'):
@@ -170,6 +176,7 @@ class bama_crawler:
         #    !_! check point is here !_!
         self.check_point('with_price',self.cars_info_with_price)
         self.check_point('without_price',self.car_info_without_price)
+        
         print(f'+{len(self.cars_info_with_price)} cars data found')
         print(f'+{len(self.car_info_without_price)} cars data found')
 
