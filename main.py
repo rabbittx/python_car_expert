@@ -21,12 +21,21 @@ class Panel(bama_crawler ,Car_expert,random_forest_car_expert):
         print('Panel : DB update done ')
 
     def train_car_expert(self):
-        print('Panel : car export start')
-        self.car_expert = Car_expert(self.car_info_CSV_file_name)
-        self.car_expert.fix_data()
-        print('Panel : car export start to train model')
-        self.car_expert.train_model()
-        print('Panel : car export model is ready')
+        if self.car_expert == None :
+                
+            print('Panel : car export start')
+            self.car_expert = Car_expert(self.car_info_CSV_file_name)
+            self.car_expert.fix_data()
+            print('Panel : car export start to train model')
+            self.car_expert.train_model()
+            print('Panel : car export model is ready')
+        else :
+            self.car_expert.fix_data()
+            print('Panel : car export start to train model')
+            self.car_expert.train_model()
+            print('Panel : car export model is ready')
+
+
 
     def check_car_price(self):
         # remove input from here and get them from user inside of function
@@ -36,7 +45,8 @@ class Panel(bama_crawler ,Car_expert,random_forest_car_expert):
         user_gear = 'اکسلنت'
         user_km = 76000
         user_city = 'بابل'
-        self.car_expert.check_it(user_brand,user_model,user_year,user_gear,user_km,user_city,)
+        # self.car_expert.check_it(user_brand,user_model,user_year,user_gear,user_km,user_city,)
+        self.car_expert.check_it()
 
     def panel_menu(self):
 
