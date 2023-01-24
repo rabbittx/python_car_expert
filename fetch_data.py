@@ -141,9 +141,7 @@ class bama_crawler:
             
             if price != 'توافقی' and price != -1:
                 price = int(price)
-                print(price)
-                if  (price <=200000000 and city =='تهران' )and ():
-                    if os.path.isfile(f'car-200m-cityfilter_wit_price.csv'):
+                if os.path.isfile(f'car-200m-cityfilter_wit_price.csv'):
                         filter_csv_witout = pd.read_csv('car-200m-cityfilter_wit_price.csv')
                         if id not in list(self.car_info_without_price.keys()) and id not in filter_csv_witout[
                             'id'].values:
@@ -152,7 +150,7 @@ class bama_crawler:
                                     location, price, car_link, ]})
                         else:
                             pass
-                    else:
+                else:
                         if id not in self.car_info_without_price.keys():
                             self.car_info_without_price.update(
                                 {id: [title, date, car_brand, car_model, year, km, gear, address, city,
