@@ -52,9 +52,6 @@ class Car_expert:
         car_brand = self.le.transform(car_brand)
         self.car_brand_dic = self.fill_dic(car_brand, self.car_brand_dic, self.csv_file, 'car_brand')
         
-        print('--------- dic------------')
-        print(self.car_brand_dic)
-        print('---------------------')
         self.save_le_info(self.car_brand_dic,'car_brands')
 
         car_model = self.csv_file['car_model']
@@ -107,7 +104,7 @@ class Car_expert:
             if c == 3 :
                 break
             else:
-                print(value)
+                print(key)
                 c +=1
         
         car_input_brand = input(f'car brand : ')
@@ -115,40 +112,43 @@ class Car_expert:
         while car_input_brand == False :
             car_input_brand = input('input not valid retry .car brand : ')
             car_input_brand = self.find_item(self.car_brand_dic, car_input_brand)
-
-        for index ,key,value in self.car_model_dic.items():
-            if index == 3 :
+        c = 0
+        for key,value in self.car_model_dic.items():
+            if c == 3 :
                 break
             else:
-                print(value)        
+                print(key)
+                c +=1 
+
         car_input_model = input(f'car model : ')
         car_input_model = self.find_item(self.car_model_dic, car_input_model)
         while car_input_model == False :
             car_input_model = input('input not valid retry .car model : ')
             car_input_model = self.find_item(self.car_model_dic, car_input_model)
-
-        
-        car_input_year = int(nput('year : '))
-        for index ,key,value in self.car_gear_dic.items():
-            if index == 3 :
+        car_input_year = int(input('year : '))
+        c = 0
+        for key,value in self.car_gear_dic.items():
+            if c == 3 :
                 break
             else:
-                print(value) 
-        car_input_gear = nput('gear : ')
-       
+                print(key)
+                c +=1         
+        car_input_gear = input('gear : ')
         car_input_gear = self.find_item(self.car_gear_dic, car_input_gear)
         while car_input_gear == False :
             car_input_gear = input('input not valid retry .car gear : ')
             car_input_gear = self.find_item(self.car_gear_dic, car_input_gear)
 
 
-        car_input_km = int(nput('km : '))
-        for index ,key,value in enumerate(self.car_city_dic.items()):
-            if index == 3 :
+        car_input_km = int(input('km : '))
+        c = 0
+        for key,value in self.car_city_dic.items():
+            if c == 3 :
                 break
             else:
-                print(value)
-        car_input_city = int(nput('city : '))
+                print(key)
+                c +=1 
+        car_input_city = input('city : ')
         
         car_input_city = self.find_item(self.car_city_dic, car_input_city)
         while car_input_city == False :
@@ -219,12 +219,12 @@ class Car_expert:
         # user_city = 'مشهد'
         # price_of_page = numpy.str_(1950000000)
 
-        user_brand = self.find_item(self.car_brand_dic, user_brand)
-        user_model = self.find_item(self.car_model_dic, user_model)
-        user_gear = self.find_item(self.car_gear_dic, user_gear)
-        user_city = self.find_item(self.car_city_dic, user_city)
+        user_brand = self.find_item(self.car_brand_dic, car_input_brand)
+        user_model = self.find_item(self.car_model_dic, car_input_model)
+        user_gear = self.find_item(self.car_gear_dic, car_input_gear)
+        user_city = self.find_item(self.car_city_dic, car_input_city)
 
-        user_data = [[user_brand, user_model, user_year, user_gear, user_km, user_city]]
+        user_data = [[car_input_brand, car_input_model, car_input_year, car_input_gear, car_input_km, car_input_city]]
 
         answer = self.clf.predict(user_data)
         print('======= price =========')
