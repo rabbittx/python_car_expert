@@ -136,14 +136,11 @@ class bama_crawler:
                                                                       {'class': 'bama-ad__price-holder'}).text.strip()
             except:
                 price = -1
-            if type(price) == str:
-                price = price.replace(',','')
-            
-            if price != 'توافقی' and price != -1:
-                price = int(price)
-                if os.path.isfile(f'car-200m-cityfilter_wit_price.csv'):
-                        filter_csv_witout = pd.read_csv('car-200m-cityfilter_wit_price.csv')
-                        if id not in list(self.car_info_without_price.keys()) and id not in filter_csv_witout[
+          
+            if price == 'توافقی' or price == -1:
+                print('price is -1 ',price)
+                if os.path.isfile(f"{self.cars_info_without_price_DB}.csv"):
+                        if id not in list(self.car_info_without_price.keys()) and id not in self.old_csv_file_without_price[
                             'id'].values:
                             self.car_info_without_price.update(
                                 {id: [title, date, car_brand, car_model, year, km, gear, address, city,
@@ -157,6 +154,8 @@ class bama_crawler:
                                     location, price, car_link, ]})
 
             else:
+                print('price is  int  ',price)
+
                 if os.path.isfile(f'{self.cars_info_with_price_DB}.csv'):
                     if id not in list(self.cars_info_with_price.keys()) and id not in self.old_csv_file_with_price[
                         'id'].values:
@@ -171,12 +170,14 @@ class bama_crawler:
                             {id: [title, date, car_brand, car_model, year, km, gear, address, city,
                                   location, price, car_link, ]})
 
+
+
         #    !_! check point is here !_!
         self.check_point('with_price',self.cars_info_with_price)
         self.check_point('without_price',self.car_info_without_price)
         
-        print(f'+{len(self.cars_info_with_price)} cars data found')
-        print(f'+{len(self.car_info_without_price)} cars data found')
+        print(f'+{len(self.cars_info_with_price)} with price cars data found')
+        print(f'+{len(self.car_info_without_price)} without price cars data found')
 
     def fix_data_to_save(self, car_info, csv_filename):
         for car in list(car_info.items()):
